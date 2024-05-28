@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="titulo">COSORRITOS</h1>
+        <div class="info">
+            <span >Objetivo: <span id="objetivo">30</span></span>
+            <div>
+                <span id="text-score">Juanchos eliminados: </span><span id="toxicas-eliminadas">0</span>
+            </div>
+        </div>
+        <div class="menu">
+            <h2 id="title">GAME</h2>
+            <button id="btn-play">PLAY GAME</button>
+        </div>
+        <canvas id="canvas"></canvas>
+        <div class="controls">
+            <div class="arrows">
+                <ion-icon id="arrow-left" name="arrow-back-circle-outline"></ion-icon>
+                <ion-icon id="arrow-right" name="arrow-forward-circle-outline"></ion-icon>
+            </div>
+            <div class="heart">
+                <ion-icon id="heart-icon" name="heart-circle-outline"></ion-icon>
+            </div>
+        </div>
+        <div class="instructions">
+            <span>
+                Usa las letras A y D para moverte y la letra W para disparar.
+            </span>
+            <span class="instructions">
+                No puedes moverte y disparar al mismo tiempo.
+            </span>
+        </div>
+    </div>
+    <audio id="cancion" autoplay loop style="display:none;"></audio>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+        import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC7ih7ik2HJHczVKdMKb7UwqCui1X5NYrA",
+            authDomain: "proyectos-varios-5d817.firebaseapp.com",
+            projectId: "proyectos-varios-5d817",
+            storageBucket: "proyectos-varios-5d817.appspot.com",
+            messagingSenderId: "729462667297",
+            appId: "1:729462667297:web:e2b464622bbe33a22b0b60",
+            measurementId: "G-WYKQJKHTHJ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const storage = getStorage(app);
+        const audioRef = ref(storage, 'Y2meta.app - Camilo, Carin Leon - Una Vida Pasada (Official Video) (128 kbps).mp3'); // Coloca el nombre exacto de tu archivo en Firebase Storage
+
+        getDownloadURL(audioRef)
+            .then((url) => {
+                const audioElement = document.getElementById('cancion');
+                audioElement.src = url;
+                audioElement.play(); // Reproduce automáticamente el audio una vez cargado
+            })
+            .catch((error) => {
+                console.error('Error al obtener la URL de descarga:', error);
+            });
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="/script.js"></script>
+</body>
+</html>
